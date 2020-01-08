@@ -1,0 +1,31 @@
+a) try and check where these operators appear
+	-live query statistics
+	-order by, where , join's
+	-when you use order by, it doesn t matter what you have after select
+	-if you use where and join, it is important^
+	-no more than 4 queries are needed
+
+b)select ...
+from Tb where b2=some value
+
+-execute first w/out any index
+
+-than create an index on b2 non clustered, then execute again
+-if you don't see any differrences, add records
+-it is important what fields you have in the select
+
+c)create a select and save in a view
+-select ... from tb inner join tb on tb.bid=tc.cid
+execute view
+-create non clustered index on the fk
+execute view
+-in views you cannot have order by
+
+conclusion:
+create 3 tables with the specified structure
+a)check w/ live query statistics select with order by, where, join
+you will have to create non clustered index '
+b)..
+c)..
+
+

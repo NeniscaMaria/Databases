@@ -1,0 +1,55 @@
+-creat a table with the current database:
+	-Tid
+	-contains the number of the current version
+-scripts:
+	-you don't have to consider the same table for all te scripts
+	-ALTER TABLE
+	-a version for each script, in that order
+	-operation/revers operation (int the text of the problem)
+	-initial v:0. To go to v4, you need to go through all the versions up to that point
+	-to go back to v2, you need to do the reverse ops
+	a): ALTER TABLE name
+	    ALTER COLUMN cname SMALLINT (ori varchar, or any)
+	reverse: ... cname INT
+
+	b)ALTER TABLE name
+	  ADD cname type
+	reverse: ALTER TABLE name DROP COLUMN cname
+
+	c)ALTER TABLE name
+	  ADD CONSTRAINT df_name DEFAULT (type of constraint) value FOR attribute
+	reverse: ... DROP CONSTRAINT df_name
+
+	d)you can create a new table and put the constraint at the end
+	  reverse: drop the constraint and then the table
+	
+	e)candidate key = unique constraint
+	  reverse: drop the constraint
+	
+	f)you can add a new table here as well / add a field on another table
+	  reverse: drop constraint and then you have to drop the table here as well / drop the column
+	
+	g)just add a new table
+	reverse: drop it
+
+-procedures:
+	-7 for the direct op and 7 for the reverse
+	-CREATE PROCEDURE name AS
+	 ...(ex :ALTER TABLE name
+	    ALTER COLUMN cname SMALLINT (ori varchar, or any))
+	GO
+	-to execute: EXEC name
+	-PRINT 'Message'
+
+-procedure to bring to a version the database:
+	-CREATE PROCEDURE Main @version INT BEGIN AS ..
+	-DECALRE @v INT
+	-DECLARE @command VARCHAR(50)
+	-SET @v=1 --- setting a value
+	-initial: v=0
+	-EXEC Main 4->v1,v2,v3,v4
+	-set the current version to 4
+	-EXEC Main 2-> reversev4,reversev3
+	-set current version to 2
+	-EXEC Main 8 -> error message
+	-

@@ -1,0 +1,55 @@
+->test:-delete/insert from table and evaluate view
+->tests for at least 3 tables and at least 3 views
+->create view V1 as
+	select Name
+	from Student
+go
+--select * from V1--
+
+->create view V2 as
+	select G.Gid,S.name
+	from Groups G inner join Students S on G.Gid=S>SId
+	where noOfStudents>20
+go
+--select* from V2--(operation to evaluate the view)
+
+->view = a virtual table
+
+->In the following tables you have to add only once (at the beginning)
+	-Tables table :-tid=identity
+			-name=the tables considered
+	-Views table:-exactly the same as above
+	-Tests table:-name of test : ex: Del/Ins t_name Ev v_name
+	-TestViews table:-the viewID same as the view used in the Tests table at the id=TVid
+	-TestTables table:-noOfRows:-how many rows we want to insert in the table used in the test
+			-position:-position in the "rank"-order of deletion
+				ex: 1-ST
+				    2-Student
+				    3-Group
+				    4-Teacher
+			
+
+declare @n, @i int
+set @n=(select NoOfRows from TestTables where..)
+set @i=1
+set @group=(select max(Gid) from Groups) /min,the top etc
+while @i<=@n
+	begin
+	insert into Students(Name,Gid) values 
+	--(Name+@i,@group)
+	set @i=@i+1	
+	end
+end
+
+-select all possiblities when pk is also a fk
+	select tid,sid
+	from Students cross join Teachers
+
+-main procedure
+declare @t1,@t2,@t3 datetime
+set @t1=GETDATE()
+--delete
+--insert
+set @t2=GETDATE()
+--evaluate view
+set @t3=GETDATE()
